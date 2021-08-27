@@ -2,20 +2,22 @@ import {TwitchClient} from './services/twitch';
 import {HelixStream} from 'twitch';
 import {MessageEmbed} from 'discord.js';
 import {discordClient} from './services/discord';
+import getRequiredEnvVariable from './utils/getRequiredEnvVariable';
 
 
-const INTERVAL = 5 * 1000; // the interval to scrape streams in.
+const CHANNEL_ID_TO_SEND_TO = getRequiredEnvVariable('DISCORD_SEND_TO_CHANNEL_ID');
+const INTERVAL = 10 * 1000; // the interval to scrape streams in.
 
 const runningGames = new Set<string>(); // holds all streamIds known to the bot, so it'll know the status of the previous scrape in each new scrape.
 let isFirst = true; // isFirst is used to prevent sending tons of messages in a row when it's the first run of the bot.
 
 
-export default function notifyNewGameStreams(gameId: string) {
+export default function notifyNewGameStreams(gameId: string | string[]) {
     scrapeStreamsOfGame(gameId);
 }
 
 
-async function scrapeStreamsOfGame(gameId: string) {
+async function scrapeStreamsOfGame(gameId: string | string[]) {
     const gameStreams = await TwitchClient.getStreamsOfGame(gameId);
 
     const streamIdsToClean = new Set([...runningGames]);
@@ -59,7 +61,7 @@ async function notifyNewStream(stream: HelixStream) {
         .setImage(stream.getThumbnailUrl(640, 360))
         .setTimestamp(stream.startDate);
 
-    const channel = discordClient.channels.cache.get('780485074859720704');
+    const channel = discordClient.channels.cache.get(CHANNEL_ID_TO_SEND_TO);
     if (channel.isText()) {
         channel.send({embeds: [embed]});
     }

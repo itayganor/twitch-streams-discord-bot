@@ -1,14 +1,17 @@
 require('dotenv').config();
 
-import {discordClient} from './services/discord';
+import getRequiredEnvVariable from './utils/getRequiredEnvVariable';
+import {initializeDiscordClient} from './services/discord';
 import notifyNewGameStreams from './notifyNewGameStreams';
 
 
-const RICHUP_GAME_ID = '1837784895';
+const GAME_IDS = getRequiredEnvVariable('GAME_ID').split(',');
 
+async function main() {
+    await initializeDiscordClient();
+    notifyNewGameStreams(GAME_IDS);
+}
 
-discordClient.on('ready', () => {
-    notifyNewGameStreams('743');
-});
-
-
+if (require.main === module) {
+    main();
+}
