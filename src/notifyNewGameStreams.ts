@@ -12,12 +12,13 @@ const runningGames = new Set<string>(); // holds all streamIds known to the bot,
 let isFirst = true; // isFirst is used to prevent sending tons of messages in a row when it's the first run of the bot.
 
 
-export default function notifyNewGameStreams(gameId: string | string[]) {
-    scrapeStreamsOfGame(gameId);
+export default function notifyNewGameStreams(gameIds: string[]) {
+    console.log(`Scraping Twitch for streams of games: ${gameIds.join(', ')}`);
+    scrapeStreamsOfGames(gameIds);
 }
 
 
-async function scrapeStreamsOfGame(gameId: string | string[]) {
+async function scrapeStreamsOfGames(gameId: string[]) {
     const gameStreams = await TwitchClient.getStreamsOfGame(gameId);
 
     const streamIdsToClean = new Set([...runningGames]);
@@ -43,7 +44,7 @@ async function scrapeStreamsOfGame(gameId: string | string[]) {
     isFirst = false;
 
     setTimeout(() => { // fire the next iteration
-        scrapeStreamsOfGame(gameId);
+        scrapeStreamsOfGames(gameId);
     }, INTERVAL);
 }
 
@@ -57,7 +58,7 @@ async function notifyNewStream(stream: HelixStream) {
         .setTitle(stream.title)
         .setURL(streamUrl)
         .setAuthor(stream.userDisplayName, streamer.profilePictureUrl, streamUrl)
-        .setDescription(`Now streaming ${stream.gameName}`)
+        .setDescription(`Streaming ${stream.gameName}`)
         .setImage(stream.getThumbnailUrl(640, 360))
         .setTimestamp(stream.startDate);
 

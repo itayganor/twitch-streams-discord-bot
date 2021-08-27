@@ -14,14 +14,24 @@ After you have all required identifiers, go ahead and run the code:
 
 1. Define the required environment variables (replace the example values with your own):
     ```dotenv
-    DISCORD_SEND_TO_CHANNEL_ID=432809413209214389
-    DISCORD_BOT_TOKEN=gjlKHJK897gJHGhdhfgjh987.YbfdkA.ADNndfgmf54390JKlfnmnm9kio
-    TWITCH_GAME_ID=1837784896
-    TWITCH_CLIENT_ID=ajs945owrkmcvj59dj6nfkck6jrj976
-    TWITCH_CLIENT_SECRET=wieu8d0cmvn54olkp0w2sx21dk8dj49a2
+    DISCORD_SEND_TO_CHANNEL_ID = 432809413209214389
+    DISCORD_BOT_TOKEN = gjlKHJK897gJHGhdhfgjh987.YbfdkA.ADNndfgmf54390JKlfnmnm9kio
+    TWITCH_GAME_ID = 1837784896
+    TWITCH_CLIENT_ID = ajs945owrkmcvj59dj6nfkck6jrj976
+    TWITCH_CLIENT_SECRET = wieu8d0cmvn54olkp0w2sx21dk8dj49a2
     ```
    You can use a `.env` file, or just set your deployment's environment variables as normal.
 
 2. Run `npm install`.
 3. Run `npm run build`.
 4. Run `npm start`.
+
+
+### Scraping multiple games
+
+the `GAME_ID` environment variable can also be a list of game IDs. That way, you can get notifications
+for multiple games, not just one.
+
+```dotenv
+TWITCH_GAME_ID = 1837784896,518222
+```
