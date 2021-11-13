@@ -12,7 +12,7 @@ const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 const apiClient = new ApiClient({
     authProvider,
     logger: {
-        minLevel: 'debug',
+        minLevel: 'error',
     },
 });
 
