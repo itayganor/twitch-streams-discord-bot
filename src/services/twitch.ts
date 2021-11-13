@@ -1,5 +1,5 @@
-import {ApiClient} from 'twitch';
-import {ClientCredentialsAuthProvider} from 'twitch-auth';
+import {ApiClient} from '@twurple/api';
+import {ClientCredentialsAuthProvider} from '@twurple/auth';
 
 import getRequiredEnvVariable from '../utils/getRequiredEnvVariable';
 
@@ -9,7 +9,12 @@ const clientSecret = getRequiredEnvVariable('TWITCH_CLIENT_SECRET');
 const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 
 
-const apiClient = new ApiClient({authProvider});
+const apiClient = new ApiClient({
+    authProvider,
+    logger: {
+        minLevel: 'debug',
+    },
+});
 
 
 export class TwitchClient {

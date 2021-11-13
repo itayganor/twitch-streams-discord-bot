@@ -5,7 +5,7 @@ import {initializeDiscordClient} from './services/discord';
 import notifyNewGameStreams from './notifyNewGameStreams';
 
 
-const GAME_IDS = getRequiredEnvVariable('GAME_ID').split(',');
+const GAME_IDS = getRequiredEnvVariable('GAME_ID').split(',').map(i => i.trim());
 
 async function main() {
     await initializeDiscordClient();

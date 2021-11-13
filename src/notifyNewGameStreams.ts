@@ -1,5 +1,5 @@
 import {TwitchClient} from './services/twitch';
-import {HelixStream} from 'twitch';
+import {HelixStream} from '@twurple/api';
 import {MessageEmbed} from 'discord.js';
 import {discordClient} from './services/discord';
 import getRequiredEnvVariable from './utils/getRequiredEnvVariable';

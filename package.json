@@ -7,9 +7,10 @@
     "dev": "cross-env NODE_ENV=dev nodemon --config \"./nodemon.json\"/"
   },
   "dependencies": {
+    "@twurple/api": "^5.0.9",
+    "@twurple/auth": "^5.0.9",
     "discord.js": "^13.1.0",
-    "lodash": "^4.17.21",
-    "twitch": "^4.6.5"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.172",
